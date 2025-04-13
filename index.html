@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MovieZone - Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="app.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1 class="logo">🎬 movie selection</h1>
+  </header>
+  <div class="movie-card">
+    <img src="movie-image.jpg" alt="Movie Title">
+    <div class="movie-info">
+      <h3 class="movie-title">Inception</h3>
+      <button class="add-to-watchlist" data-movie-id="123">Add to Watchlist</button>
+    </div>
+  </div>
+  
+  <main id="movie-list" class="grid-container">
+  </main>
+
+  <div class="loader" id="loader"></div>
+  <script src="script.js"></script>
+</body>
+</html>
