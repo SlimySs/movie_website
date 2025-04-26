@@ -1,7 +1,6 @@
 const watchlistContainer = document.getElementById('watchlist');
 const loader = document.getElementById('loader');
 
-// Load the saved watchlist from localStorage
 function loadWatchlist() {
   const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
 
@@ -26,7 +25,6 @@ function loadWatchlist() {
   });
 }
 
-// Remove movie from the watchlist
 function removeFromWatchlist(movieId) {
   let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
   watchlist = watchlist.filter(movie => movie.id !== movieId);
