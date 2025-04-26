@@ -49,7 +49,6 @@ function displaySearchResults(movies) {
 function addToWatchlist(movie) {
   let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
   
-  // Check if movie is already in the watchlist
   const exists = watchlist.find(m => m.id === movie.id);
 
   if (!exists) {
