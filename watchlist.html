@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Watchlist</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 class="logo">Movies Website</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="watchlist.html">Watchlist</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Your Watchlist</h2>
+    <div id="watchlist-container"></div>
+  </main>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Fetch watchlist from localStorage and display
+    const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+    const watchlistContainer = document.getElementById('watchlist-container');
+
+    if (watchlist.length === 0) {
+      watchlistContainer.innerHTML = "<p>Your watchlist is empty.</p>";
+    } else {
+      watchlist.forEach(movie => {
+        const movieDiv = document.createElement('div');
+        movieDiv.classList.add('movie-card');
+        movieDiv.innerHTML = `
+          <img src="path/to/movie-image.jpg" alt="${movie.title}">
+          <div class="movie-info">
+            <h3 class="movie-title">${movie.title}</h3>
+          </div>
+        `;
+        watchlistContainer.appendChild(movieDiv);
+      });
+    }
+  </script>
+</body>
+</html>
