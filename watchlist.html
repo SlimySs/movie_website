@@ -20,28 +20,44 @@
 
   <main>
     <h2>Your Watchlist</h2>
-    <div id="watchlist-container"></div>
+    <div id="watchlist"></div>
   </main>
 
   <script src="js/script.js"></script>
   <script>
-    const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
-    const watchlistContainer = document.getElementById('watchlist-container');
+    const watchlistContainer = document.getElementById('watchlist');
 
-    if (watchlist.length === 0) {
-      watchlistContainer.innerHTML = "<p>Your watchlist is empty.</p>";
-    } else {
+    // Load watchlist when page loads
+    window.onload = loadWatchlist;
+
+    function loadWatchlist() {
+      const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+
+      if (watchlist.length === 0) {
+        watchlistContainer.innerHTML = '<p>No movies in your watchlist yet!</p>';
+        return;
+      }
+
+      watchlistContainer.innerHTML = ''; // Clear existing content
       watchlist.forEach(movie => {
-        const movieDiv = document.createElement('div');
-        movieDiv.classList.add('movie-card');
-        movieDiv.innerHTML = `
-          <img src="path/to/movie-image.jpg" alt="${movie.title}">
+        const movieCard = document.createElement('div');
+        movieCard.classList.add('movie-card');
+        movieCard.innerHTML = `
+          <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" />
           <div class="movie-info">
             <h3 class="movie-title">${movie.title}</h3>
+            <button onclick="removeFromWatchlist(${movie.id})">❌ Remove</button>
           </div>
         `;
-        watchlistContainer.appendChild(movieDiv);
+        watchlistContainer.appendChild(movieCard);
       });
+    }
+
+    function removeFromWatchlist(movieId) {
+      let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+      watchlist = watchlist.filter(movie => movie.id !== movieId); // Remove movie by id
+      localStorage.setItem('watchlist', JSON.stringify(watchlist)); // Save to localStorage
+      loadWatchlist(); // Refresh the watchlist UI
     }
   </script>
 </body>
