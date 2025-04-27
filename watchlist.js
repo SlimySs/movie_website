@@ -17,12 +17,13 @@ function loadWatchlist() {
       <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" />
       <div class="movie-info">
         <h3 class="movie-title">${movie.title}</h3>
-        <button onclick="removeFromWatchlist(${movie.id})">❌ Remove</button>
+        <!-- Add event.stopPropagation() to prevent triggering movie details -->
+        <button onclick="event.stopPropagation(); removeFromWatchlist(${movie.id})">❌ Remove</button>
       </div>
     `;
-    movieCard.addEventListener('click', () => showMovieDetails(movie.id)); // Add click listener
+    movieCard.addEventListener('click', () => showMovieDetails(movie.id)); // Add click listener for movie details
     watchlistContainer.appendChild(movieCard);
-  });
+  });  
 }
 
 function removeFromWatchlist(movieId) {
