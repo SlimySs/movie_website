@@ -24,27 +24,27 @@ searchInput.addEventListener('input', async () => {
 });
 
 function displaySearchResults(movies) {
-  resultsContainer.innerHTML = '';
-
-  if (movies.length === 0) {
-    resultsContainer.innerHTML = '<p style="grid-column: 1 / -1;">No results found.</p>';
-    return;
-  }
-
-  movies.forEach(movie => {
-    const movieCard = document.createElement('div');
-    movieCard.classList.add('movie-card');
-    movieCard.innerHTML = `
-      <img src="${IMG_PATH + movie.poster_path}" alt="${movie.title}" />
-      <div class="movie-info">
-        <h3 class="movie-title">${movie.title}</h3>
-        <button onclick="addToWatchlist(${JSON.stringify(movie)})">➕ Watchlist</button>
-      </div>
-    `;
-    movieCard.addEventListener('click', () => showMovieDetails(movie.id)); // Click listener for details
-    resultsContainer.appendChild(movieCard);
-  });
-}
+    resultsContainer.innerHTML = '';
+  
+    if (movies.length === 0) {
+      resultsContainer.innerHTML = '<p style="grid-column: 1 / -1;">No results found.</p>';
+      return;
+    }
+  
+    movies.forEach(movie => {
+      const movieCard = document.createElement('div');
+      movieCard.classList.add('movie-card');
+      movieCard.innerHTML = `
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" />
+        <div class="movie-info">
+          <h3 class="movie-title">${movie.title}</h3>
+          <button onclick="addToWatchlist(${JSON.stringify(movie)})">➕ Watchlist</button> <!-- Ensure this is the right line -->
+        </div>
+      `;
+      movieCard.addEventListener('click', () => showMovieDetails(movie.id)); 
+      resultsContainer.appendChild(movieCard);
+    });
+  }  
 
 function addToWatchlist(movie) {
   let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
@@ -69,3 +69,17 @@ async function showMovieDetails(movieId) {
     console.error('Error fetching movie details:', error);
   }
 }
+function addToWatchlist(movie) {
+    let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+    
+    const exists = watchlist.find(m => m.id === movie.id);
+  
+    if (!exists) {
+      watchlist.push(movie);
+      localStorage.setItem('watchlist', JSON.stringify(watchlist));
+      alert(`${movie.title} added to your watchlist!`);
+    } else {
+      alert('This movie is already in your watchlist.');
+    }
+  }
+  
